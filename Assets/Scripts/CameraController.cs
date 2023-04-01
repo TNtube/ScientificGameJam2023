@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -49,5 +50,12 @@ public class CameraController : MonoBehaviour
         
         Vector3 dir = -delta;
         transform.position += dir * moveSpeed * Time.deltaTime;
+    }
+    
+    public void FocusAndZoom(Vector3 position, float zoom)
+    {
+        var newPos = new Vector3(position.x, position.y, transform.position.z);
+        transform.DOMove(newPos, 0.5f);
+        _cam.DOOrthoSize(zoom, 0.5f);
     }
 }
