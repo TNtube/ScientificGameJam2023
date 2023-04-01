@@ -39,7 +39,7 @@ public class SidePanel : MonoBehaviour
     {
         var content = panel.GetComponentInChildren<ScrollRect>().content;
         var missionElement = Instantiate(missionPrefab, content).GetComponent<MissionElement>();
-        missionElement.Init(mission, new Vector3(-0.5f + lastMissionId*3, -4.25f + lastMissionId*1.5f, 0f));
+        missionElement.Init(mission, new Vector3(44 + lastMissionId*3, 8 + lastMissionId*1.5f, 0f));
         _elements.Add(missionElement);
         lastMissionId++;
     }
