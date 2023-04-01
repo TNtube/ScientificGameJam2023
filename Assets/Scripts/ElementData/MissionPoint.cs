@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class MissionPoint : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     // Base a revoir 
-    [SerializeField] private Mission mission;
+    [SerializeField] private MissionData mission;
     private Vector3 origineScale;
     private MissionPanel missionPanel;
     //public Canvas GetCanvas { set => canvas = value; get => canvas; }

@@ -37,17 +37,10 @@ public class RoadGeneration : MonoBehaviour
                // if(x == 0 || y == 0 ||x == 5 || y == 5||x == 10 || y == 10 ||x == 15 || y == 15)
                //if(CellIndexBuilding == 0 ||  CellIndexBuilding == BuildingSize)
                // Refaire (test temporaire)
-               if(x%5 == 0 || y%5 == 0)
+               if(x%BuildingSize == 0 || y%BuildingSize == 0)
                {
                    tilemap.SetTile(new Vector3Int(x + offSet.x, y+ offSet.y, 0), roadTile);
                 }
-               
-               /*
-               CellIndexBuilding++;
-               if (CellIndexBuilding >= BuildingSize)
-               {
-                   CellIndexBuilding = 0;
-               }*/
             }
         }
     }
@@ -62,6 +55,7 @@ public class RoadGeneration : MonoBehaviour
     
     public TileData GetTileData(Vector2Int _coord)
     {
+        Debug.Log($"TILE : x : {_coord.x + offSet.x} / y : {_coord.y+ offSet.y}");
         return  tileDatas[_coord.x + offSet.x, _coord.y+ offSet.y];
     }
     public bool CheckOutside(int _coordX, int _coordY)
@@ -97,6 +91,25 @@ public class RoadGeneration : MonoBehaviour
         }
 
         return neighbours;
+    }
+
+    private void OnDrawGizmos()
+    {
+        /*
+        tileDatas = new TileData[roadSize.x, roadSize.y];
+        
+        Gizmos.color = Color.blue;
+        for (int x = 0; x < tileDatas.GetLongLength(0); x++)
+        {
+            for (int y = 0; y < tileDatas.GetLongLength(1); y++)
+            {
+                if (x % BuildingSize == 0 || y % BuildingSize == 0)
+                {
+                    Gizmos.DrawWireCube(new Vector3Int(x + offSet.x, y + offSet.y, 0), new Vector3(1f, 1f, 1f));
+                }
+            }
+        }
+        */
     }
 }
 
