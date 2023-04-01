@@ -38,9 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Ground
     uniqueID: 1025775803
     locked: 0
@@ -50,6 +47,6 @@ TagManager:
   - name: Building
     uniqueID: 1589228675
     locked: 0
-  - name: Truck
-    uniqueID: 1399831061
+  - name: Default
+    uniqueID: 0
     locked: 0

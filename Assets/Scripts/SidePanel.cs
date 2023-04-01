@@ -9,36 +9,38 @@ using Button = UnityEngine.UI.Button;
 
 public class SidePanel : MonoBehaviour
 {
-    public Button openButton;
-    public Button closeButton;
+    public Button toggleButton;
     public RectTransform panel;
     
     public GameObject missionPrefab;
+
+    private List<MissionElement> _elements = new ();
     
-    private CameraController _cam;
+    private bool _isOpen;
+    
+    static int lastMissionId = 0;
     
     // Start is called before the first frame update
     void Start()
     {
-        _cam = Camera.main.GetComponent<CameraController>();
-        openButton.onClick.AddListener(() =>
+        toggleButton.onClick.AddListener(() =>
         {
-            panel.gameObject.SetActive(true);
-            panel.DOMoveX(250.0f, 0.3f, true);
-        });
-        
-        closeButton.onClick.AddListener(() =>
-        {
-            panel.DOMoveX(-250.0f, 0.3f, true).OnComplete(() =>
+            if (!_isOpen)
             {
-                panel.gameObject.SetActive(false);
-            });
+                panel.gameObject.SetActive(true);
+                panel.DOMoveX(250.0f, 0.3f, true).OnComplete(() => _isOpen = true);
+                return;
+            }
+            panel.DOMoveX(-250.0f, 0.3f, true).OnComplete(() => _isOpen = false);
         });
     }
     
     public void AddMission(MissionData mission)
     {
         var content = panel.GetComponentInChildren<ScrollRect>().content;
-        GameObject missionObj = Instantiate(missionPrefab, content);
+        var missionElement = Instantiate(missionPrefab, content).GetComponent<MissionElement>();
+        missionElement.Init(mission, new Vector3(-0.5f + lastMissionId*3, -4.25f + lastMissionId*1.5f, 0f));
+        _elements.Add(missionElement);
+        lastMissionId++;
     }
 }
