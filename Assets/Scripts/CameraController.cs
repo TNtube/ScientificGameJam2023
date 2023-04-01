@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class CameraController : MonoBehaviour
@@ -10,8 +11,6 @@ public class CameraController : MonoBehaviour
     public float minZoomDist;
     public float maxZoomDist;
 
-    public bool ShouldZoom = false;
-    
     private Vector3 _lastMousePos;
 
     private Camera _cam;
@@ -37,7 +36,7 @@ public class CameraController : MonoBehaviour
 
     void Zoom()
     {
-        if (!IsMouseOverGameWindow || !ShouldZoom) return;
+        if (!IsMouseOverGameWindow || EventSystem.current.IsPointerOverGameObject()) return;
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
         _cam.orthographicSize += -scrollInput * zoomSpeed * Time.deltaTime;
     }
