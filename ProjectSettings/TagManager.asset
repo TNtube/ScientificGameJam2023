@@ -50,3 +50,6 @@ TagManager:
   - name: Building
     uniqueID: 1589228675
     locked: 0
+  - name: Truck
+    uniqueID: 1399831061
+    locked: 0

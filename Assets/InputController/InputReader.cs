@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class InputReader : MonoBehaviour, InputPlayer.IPlayerActions
 {
     private Vector2 mousePosition = new Vector2();
+    private Vector2 mousePositionInWorld = new Vector2();
     private bool click = false;
     private bool escape = false;
     
@@ -12,7 +13,7 @@ public class InputReader : MonoBehaviour, InputPlayer.IPlayerActions
     public bool Click { get => click; set => click = value; }
     public bool Escape { get => escape; set => escape = value; }
     public Vector2 MousePosition { get => mousePosition; set => mousePosition = value; }
-
+    public Vector2 MousePositionInWorld => Camera.main.ScreenToWorldPoint(mousePosition);
     private void Start()
     {
         controls = new InputPlayer();
