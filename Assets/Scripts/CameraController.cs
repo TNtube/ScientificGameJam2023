@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
     public float zoomSpeed;
     public float minZoomDist;
     public float maxZoomDist;
+
+    public bool ShouldZoom = false;
     
     private Vector3 _lastMousePos;
 
@@ -23,7 +25,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _cam = Camera.main;
+        _cam = GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -35,7 +37,7 @@ public class CameraController : MonoBehaviour
 
     void Zoom()
     {
-        if (!IsMouseOverGameWindow) return;
+        if (!IsMouseOverGameWindow || !ShouldZoom) return;
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
         _cam.orthographicSize += -scrollInput * zoomSpeed * Time.deltaTime;
     }
