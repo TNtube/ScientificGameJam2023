@@ -4,12 +4,16 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 
-public class SidePanel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class SidePanel : MonoBehaviour
 {
     public Button openButton;
     public Button closeButton;
     public RectTransform panel;
+    
+    public GameObject missionPrefab;
     
     private CameraController _cam;
     
@@ -32,13 +36,9 @@ public class SidePanel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         });
     }
     
-    public void OnPointerEnter(PointerEventData eventData)
+    public void AddMission(MissionData mission)
     {
-        _cam.ShouldZoom = false;
-    }
-    
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        _cam.ShouldZoom = true;
+        var content = panel.GetComponentInChildren<ScrollRect>().content;
+        GameObject missionObj = Instantiate(missionPrefab, content);
     }
 }
