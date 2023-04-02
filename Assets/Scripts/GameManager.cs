@@ -59,7 +59,6 @@ public class GameManager : MonoBehaviour
      
         var tpos = roadTilemap.WorldToCell(worldPoint);
         tpos.z = 0;
-        print(tpos);
 
         // Try to get a tile from cell position
         var tile = roadTilemap.GetTile(tpos);
@@ -68,7 +67,6 @@ public class GameManager : MonoBehaviour
 
         if(tile)
         {
-            print("In tile");
             int modX = tpos.x % 4;
             int modY = tpos.y % 4;
             if (modX == 0 && modY != 0)
@@ -89,15 +87,22 @@ public class GameManager : MonoBehaviour
         }
 
         Color color = Color.red;
+        bool removeLast = false;
         if (_path.Count == 0 && currentPoints.Any(x => _startPoints.Contains(x)))
         {
             color = Color.green;
         }
-        else if (_path.Count > 0
-                 && currentPoints.Any(x => _path.Last().Contains(x))
-                 && !currentPoints.Any(x => _path.SkipLast(1).Any(y => y.Contains(x))))
+        else if (_path.Count > 0)
         {
-            color = Color.green;
+            if(currentPoints.Any(x => _path.Last().Contains(x))
+               && !currentPoints.Any(x => _path.SkipLast(1).Any(y => y.Contains(x))))
+            {
+                color = Color.green;
+            }
+            if (currentPoints.All(x => _path.Last().Contains(x)))
+            {
+                removeLast = true;
+            }
         }
 
         currentPoints.ForEach(x =>
@@ -111,6 +116,11 @@ public class GameManager : MonoBehaviour
             if (color == Color.green )
             {
                 _path.Add(currentPoints);
+            }
+
+            if (removeLast)
+            {
+                _path.RemoveAt(_path.Count - 1);
             }
         }
 
