@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9019b736bfa2b744b9b6136c6bd07dc9
+guid: 1ae413a5a49a593449d595f58bcfe083
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,18 +105,84 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: entrepot_siege_de_lentreprise_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05124631ca8142345bcde4d8aaef6dcd
+      internalID: 1733450447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entrepot_siege_de_lentreprise_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f60260e7c62c539489aa683b25009925
+      internalID: -1047931204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entrepot_siege_de_lentreprise_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c8e43c7f421d654db8d3487002a9306
+      internalID: 128386178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      entrepot_siege_de_lentreprise_0: 1733450447
+      entrepot_siege_de_lentreprise_1: -1047931204
+      entrepot_siege_de_lentreprise_2: 128386178
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 
