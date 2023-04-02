@@ -31,15 +31,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         confirmPath.onClick.AddListener(ConfirmPath);
-        
-        for (int i = 0; i < 10; i++)
-        {
-            var missionData = ScriptableObject.CreateInstance<MissionData>();
-            missionData.title = $"Mission {i}";
-            missionData.description = $"Ceci est la mission numéro {i}, Pedro a besoin de son paquet en urgence !";
-            missionData.reward = Random.Range(50, 950);
-            SidePanel.AddMission(missionData);
-        }
 
         _pathMode = true;
         
@@ -58,28 +49,9 @@ public class GameManager : MonoBehaviour
         
         for (int i = 0; i < _path.Count; i++)
         {
-//            var _start = _path[i][0];
-//            var _ending = _path[i][_path[i].Count];
-
-//Debug.Log($"i+1 = {i+1} < {_path.Count} && {_path[i][0]}  == {_path[i+1][_path[i+1].Count]}");
-Debug.Log($"i+1 = {i+1} < {_path.Count} ");
-Debug.Log($"&& {_path[i][0]} ");
-if((i + 1) < _path.Count) Debug.Log($"&& {_path[i+1][_path[i+1].Count-1]} ");
-
-            if ((i + 1) < _path.Count && _path[i][0] == _path[i + 1][_path[i + 1].Count-1])
+            for (int j = 0; j < _path[i].Count; j++)
             {
-                Debug.Log("retour");
-                for (int j = _path[i].Count; j < 0; j--)
-                {
-                    truck.patrolPoints.Add(roadTilemap.CellToWorld(_path[i][j]));
-                }
-            }
-            else
-            {
-                for (int j = 0; j < _path[i].Count; j++)
-                {
-                    truck.patrolPoints.Add(roadTilemap.CellToWorld(_path[i][j]));
-                }
+                truck.patrolPoints.Add(roadTilemap.CellToWorld(_path[i][j]));
             }
         }
     }

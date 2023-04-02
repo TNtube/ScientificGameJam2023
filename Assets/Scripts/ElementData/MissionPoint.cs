@@ -1,11 +1,15 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 public class MissionPoint : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    // Base a revoir 
-    [SerializeField] private MissionData mission;
+    // Base a revoir
+    public SidePanel SidePanel;
+   public MissionData mission;
+   public MissionData missionDATA;
+   
     private Vector3 origineScale;
     private MissionPanel missionPanel;
     //public Canvas GetCanvas { set => canvas = value; get => canvas; }
@@ -16,6 +20,13 @@ public class MissionPoint : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     public void SetMissionData(MissionData _mission)
     {
         mission = _mission;
+        
+        SidePanel = FindObjectOfType<SidePanel>();
+        missionDATA = ScriptableObject.CreateInstance<MissionData>();
+        missionDATA.title = mission.name;
+        missionDATA.description = mission.description;
+        missionDATA.reward = Random.Range(mission.reward, 950);
+        SidePanel.AddMission(missionDATA);
     }
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -35,9 +46,9 @@ public class MissionPoint : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     public void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(other.transform.name);
-        if (other.transform.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-         Destroy(gameObject);   
+            Destroy(gameObject);   
         }   
     }
 }

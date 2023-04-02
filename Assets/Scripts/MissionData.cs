@@ -10,4 +10,5 @@ public class MissionData : ScriptableObject
     public int time;
     public int difficulty;
     public Sprite icon;
+    public int ID;
 }
