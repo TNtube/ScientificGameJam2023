@@ -2,13 +2,20 @@ using UnityEngine;
 
 public class SelectionManager : MonoBehaviour
 {
-    private InputReader _input;
-    private void Start()
+    [SerializeField] TruckMouvement[] trucks;
+    public GameObject truck;
+    public void SetTruck(GameObject _obj)
     {
-        _input=GetComponent<InputReader>();
+        truck = _obj;
     }
-    private void Update()
-    {  
-      
+
+    public void updateTruck()
+    {
+        foreach (TruckMouvement tm in trucks)
+        {
+            tm.isSelected = false;
+        }
+
+        truck = null;
     }
 }

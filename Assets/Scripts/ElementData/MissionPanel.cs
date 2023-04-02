@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MissionPanel : MonoBehaviour
 {
     //Peut etre privé
-  [SerializeField] private Mission mission;
+  [SerializeField] private MissionData mission;
   private Canvas canvas;
   [SerializeField] private Button closeUI, acceptUI, declineUI;
   
@@ -21,12 +21,12 @@ public class MissionPanel : MonoBehaviour
       declineUI.onClick.AddListener(CloseUI);
   }
 
-  public void UpdateView(Mission _newMission)
+  public void UpdateView(MissionData _newMission)
   {
       mission = _newMission;
-      titleTxt.text = $"{mission.name}";
+      titleTxt.text = $"{mission.title}";
       descriptionTxt.text = $"{mission.description}";
-      moneyTxt.text = $"{mission.money}";
+      moneyTxt.text = $"{mission.reward}";
   }
   void CloseUI()
   {
