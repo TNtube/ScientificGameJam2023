@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,6 +13,10 @@ public class MissionPoint : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     {
         missionPanel = FindObjectOfType<MissionPanel>();
     }
+    public void SetMissionData(MissionData _mission)
+    {
+        mission = _mission;
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
         missionPanel.GetCanvas.enabled = true;
@@ -25,5 +30,14 @@ public class MissionPoint : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.localScale = origineScale;
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log(other.transform.name);
+        if (other.transform.tag == "Truck")
+        {
+         Destroy(gameObject);   
+        }   
     }
 }

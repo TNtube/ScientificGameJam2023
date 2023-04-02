@@ -7,7 +7,9 @@ using UnityEngine.Tilemaps;
 
 public class TruckMouvement : MonoBehaviour, IPointerDownHandler
 {
-    [SerializeField] private List<Vector3> patrolPoints = new();
+     public List<Vector3> patrolPoints = new();
+    //[SerializeField] private List<Vector3> patrolPoints = new();
+   // patrolPointsNew // public List<Vector3> patrolPointsNew = new();
     
     [SerializeField] private Tilemap tilemap;
     [SerializeField] InputReader inputReader;
@@ -35,7 +37,7 @@ public class TruckMouvement : MonoBehaviour, IPointerDownHandler
          origineScale = transform.position;
          grid = FindObjectOfType<RoadGeneration>();
          
-         patrolPoints.Add(transform.position);
+         //patrolPoints.Add(transform.position);
      }
 
      private void Update()
@@ -74,7 +76,7 @@ public class TruckMouvement : MonoBehaviour, IPointerDownHandler
          transform.position = dir;
 
          SetDirection(patrolPoints[tileIndex], patrolPoints[tileIndex + 1]);
-         
+       
          if (cooldown >= 1f)
          {
              cooldown = 0f;
