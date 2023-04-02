@@ -36110,6 +36110,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c6e52967dc67ef448e6848ff9134f17, type: 2}
   - {fileID: 11400000, guid: 5bc4f0bf057b4f041bb989c17ca9586c, type: 2}
   - {fileID: 11400000, guid: 2758225bc19059f48a0cfa32e21462eb, type: 2}
+  - {fileID: 11400000, guid: efb79c79526453a4a9dacb00d39d47d9, type: 2}
+  - {fileID: 11400000, guid: d9b2d4a2986b7ac40a32ee3fdd22d52e, type: 2}
+  - {fileID: 11400000, guid: f01e8435565daef4e80175765e516509, type: 2}
   missionDataN1:
   - {fileID: 11400000, guid: b277370109c34d24a88a26abc381de0e, type: 2}
   - {fileID: 11400000, guid: cd5763d6c00ee4343bb242ae66ecb59b, type: 2}

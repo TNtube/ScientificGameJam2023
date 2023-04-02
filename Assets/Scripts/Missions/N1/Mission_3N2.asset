@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f952b5d2e8dc46bb963ec4168d0e8ed5, type: 3}
   m_Name: Mission_3N2
   m_EditorClassIdentifier: 
-  title: Lit
-  description: 'felflsdkfodsk gopdk gposjkd ifj gifgj ifjg '
-  reward: 100
+  title: 
+  description: 
+  reward: 666
   time: 100
   difficulty: 1
   icon: {fileID: 21300000, guid: 5d52b20f865aff242bfcb08c3b6f61a5, type: 3}
+  ID: 0
