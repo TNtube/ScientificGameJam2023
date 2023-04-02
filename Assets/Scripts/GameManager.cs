@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
@@ -9,7 +11,14 @@ public class GameManager : MonoBehaviour
     public SidePanel SidePanel;
 
     [SerializeField] private Tilemap roadTilemap;
+
+    private bool _pathMode;
+    private List<List<Vector3Int>> _path = new List<List<Vector3Int>>();
     
+    public List<List<Vector3Int>> Path => _path;
+
+    private List<Vector3Int> _startPoints = new List<Vector3Int>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,53 +30,97 @@ public class GameManager : MonoBehaviour
             missionData.reward = Random.Range(50, 950);
             SidePanel.AddMission(missionData);
         }
+
+        _pathMode = true;
+        
+        _startPoints = new List<Vector3Int>
+        {
+            new (48, 52, 0),
+            new (52, 52, 0),
+            new (52, 56, 0),
+            new (48, 56, 0)
+        };
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!_pathMode) return;
+        roadTilemap.RefreshAllTiles();
+        _path.ForEach(x =>
         {
-            var worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-         
-            var tpos = roadTilemap.WorldToCell(worldPoint);
-            tpos.z = 0;
-            print(tpos);
-
-            // Try to get a tile from cell position
-            var tile = roadTilemap.GetTile(tpos);
-
-            if(tile)
+            x.ForEach(y =>
             {
-                roadTilemap.RefreshAllTiles();
-                print("In tile");
-                Vector3Int intersectionA = tpos;
-                Vector3Int intersectionB = tpos;
-                int modX = tpos.x % 4;
-                int modY = tpos.y % 4;
-                if (modX == 0 && modY != 0)
+                roadTilemap.SetTileFlags(y, TileFlags.None);
+                roadTilemap.SetColor(y, Color.green);
+            });
+        });
+
+        var worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+     
+        var tpos = roadTilemap.WorldToCell(worldPoint);
+        tpos.z = 0;
+        print(tpos);
+
+        // Try to get a tile from cell position
+        var tile = roadTilemap.GetTile(tpos);
+        
+        var currentPoints = new List<Vector3Int>();
+
+        if(tile)
+        {
+            print("In tile");
+            int modX = tpos.x % 4;
+            int modY = tpos.y % 4;
+            if (modX == 0 && modY != 0)
+            {
+                var start = tpos.y - modY;
+                for (int i = start; i < start + 5; i++)
                 {
-                    var start = tpos.y - modY;
-                    for (int i = start; i < start + 5; i++)
-                    {
-                        roadTilemap.SetTileFlags(new Vector3Int(tpos.x, i, 0), TileFlags.None);
-                        roadTilemap.SetColor(new Vector3Int(tpos.x, i, 0), Color.red);
-                    }
-                } if (modY == 0 && modX != 0)
-                {
-                    var start = tpos.x - modX;
-                    for (int i = start; i < start + 5; i++)
-                    {
-                        roadTilemap.SetTileFlags(new Vector3Int(i, tpos.y, 0), TileFlags.None);
-                        roadTilemap.SetColor(new Vector3Int(i, tpos.y, 0), Color.red);
-                    }
+                    currentPoints.Add(new Vector3Int(tpos.x, i, 0));
                 }
-                Debug.Log($"Intersection B {intersectionB} | Intersection A {intersectionA} | ModX {modX} | ModY {modY}");
-                // roadTilemap.SetTileFlags(intersectionA, TileFlags.None);
-                // roadTilemap.SetColor(intersectionA, Color.red);
-                // roadTilemap.SetTileFlags(intersectionB, TileFlags.None);
-                // roadTilemap.SetColor(intersectionB, Color.red);
-                
+            } if (modY == 0 && modX != 0)
+            {
+                var start = tpos.x - modX;
+                for (int i = start; i < start + 5; i++)
+                {
+                    currentPoints.Add(new Vector3Int(i, tpos.y, 0));
+                }
             }
         }
+
+        Color color = Color.red;
+        if (_path.Count == 0 && currentPoints.Any(x => _startPoints.Contains(x)))
+        {
+            color = Color.green;
+        }
+        else if (_path.Count > 0
+                 && currentPoints.Any(x => _path.Last().Contains(x))
+                 && !currentPoints.Any(x => _path.SkipLast(1).Any(y => y.Contains(x))))
+        {
+            color = Color.green;
+        }
+
+        currentPoints.ForEach(x =>
+        {
+            roadTilemap.SetTileFlags(x, TileFlags.None);
+            roadTilemap.SetColor(x, color);
+        });
+
+        if (Input.GetMouseButtonDown(0) && currentPoints.Count > 0)
+        {
+            if (color == Color.green )
+            {
+                _path.Add(currentPoints);
+            }
+        }
+
+        _path.ForEach(x =>
+        {
+            x.ForEach(y =>
+            {
+                roadTilemap.SetTileFlags(y, TileFlags.None);
+                roadTilemap.SetColor(y, Color.green);
+            });
+        });
     }
 }
