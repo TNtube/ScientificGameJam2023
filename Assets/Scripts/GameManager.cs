@@ -53,35 +53,35 @@ public class GameManager : MonoBehaviour
     }
     void ConfirmPath()
     {
-        truck.patrolPoints = new List<Vector3>();
+        var points = new List<Vector3>();
         
-        
-        for (int i = 0; i < _path.Count; i++)
+        int i = 0;
+        foreach (var path in _path)
         {
-//            var _start = _path[i][0];
-//            var _ending = _path[i][_path[i].Count];
-
-//Debug.Log($"i+1 = {i+1} < {_path.Count} && {_path[i][0]}  == {_path[i+1][_path[i+1].Count]}");
-Debug.Log($"i+1 = {i+1} < {_path.Count} ");
-Debug.Log($"&& {_path[i][0]} ");
-if((i + 1) < _path.Count) Debug.Log($"&& {_path[i+1][_path[i+1].Count-1]} ");
-
-            if ((i + 1) < _path.Count && _path[i][0] == _path[i + 1][_path[i + 1].Count-1])
+            Vector3Int start = Vector3Int.zero;
+            Vector3Int goal = Vector3Int.zero;
+            if (i != _path.Count - 1)
             {
-                Debug.Log("retour");
-                for (int j = _path[i].Count; j < 0; j--)
-                {
-                    truck.patrolPoints.Add(roadTilemap.CellToWorld(_path[i][j]));
-                }
+                var path2 = _path[i + 1];
+                goal = path.Find(x => path2.Contains(x));
+                start = goal == path[0] ? path.Last() : path[0];
             }
             else
             {
-                for (int j = 0; j < _path[i].Count; j++)
-                {
-                    truck.patrolPoints.Add(roadTilemap.CellToWorld(_path[i][j]));
-                }
+                var path2 = _path[i - 1];
+                start = path.Find(x => path2.Contains(x));
+                goal = start == path[0] ? path.Last() : path[0];
             }
+
+            if (i == 0)
+            {
+                points.Add(roadTilemap.CellToWorld(start) + new Vector3(0, 0.3f, 0));
+            }
+            points.Add(roadTilemap.CellToWorld(goal) + new Vector3(0, 0.3f, 0));
+            i++;
         }
+
+        truck.patrolPoints = points;
     }
     private void Update()
     {
