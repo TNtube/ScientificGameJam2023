@@ -130,15 +130,22 @@ if((i + 1) < _path.Count) Debug.Log($"&& {_path[i+1][_path[i+1].Count-1]} ");
         }
 
         Color color = Color.red;
+        bool removeLast = false;
         if (_path.Count == 0 && currentPoints.Any(x => _startPoints.Contains(x)))
         {
             color = Color.green;
         }
-        else if (_path.Count > 0
-                 && currentPoints.Any(x => _path.Last().Contains(x))
-                 && !currentPoints.Any(x => _path.SkipLast(1).Any(y => y.Contains(x))))
+        else if (_path.Count > 0)
         {
-            color = Color.green;
+            if(currentPoints.Any(x => _path.Last().Contains(x))
+               && !currentPoints.Any(x => _path.SkipLast(1).Any(y => y.Contains(x))))
+            {
+                color = Color.green;
+            }
+            if (currentPoints.All(x => _path.Last().Contains(x)))
+            {
+                removeLast = true;
+            }
         }
 
         currentPoints.ForEach(x =>
@@ -152,6 +159,11 @@ if((i + 1) < _path.Count) Debug.Log($"&& {_path[i+1][_path[i+1].Count-1]} ");
             if (color == Color.green )
             {
                 _path.Add(currentPoints);
+            }
+
+            if (removeLast)
+            {
+                _path.RemoveAt(_path.Count - 1);
             }
         }
 
