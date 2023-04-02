@@ -32,16 +32,7 @@ public class GameManager : MonoBehaviour
     {
         confirmPath.onClick.AddListener(ConfirmPath);
         
-        for (int i = 0; i < 10; i++)
-        {
-            var missionData = ScriptableObject.CreateInstance<MissionData>();
-            missionData.title = $"Mission {i}";
-            missionData.description = $"Ceci est la mission numéro {i}, Pedro a besoin de son paquet en urgence !";
-            missionData.reward = Random.Range(50, 950);
-            SidePanel.AddMission(missionData);
-        }
-
-        _pathMode = true;
+            _pathMode = true;
         
         StartPoints = new List<Vector3Int>
         {
