@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     
     public List<List<Vector3Int>> Path => _path;
 
-    private List<Vector3Int> _startPoints = new List<Vector3Int>();
+    public static List<Vector3Int> StartPoints = new List<Vector3Int>();
     [SerializeField] private Button confirmPath;
     [SerializeField] private TruckMouvement truck;
 
@@ -31,10 +31,19 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         confirmPath.onClick.AddListener(ConfirmPath);
+        
+        for (int i = 0; i < 10; i++)
+        {
+            var missionData = ScriptableObject.CreateInstance<MissionData>();
+            missionData.title = $"Mission {i}";
+            missionData.description = $"Ceci est la mission numéro {i}, Pedro a besoin de son paquet en urgence !";
+            missionData.reward = Random.Range(50, 950);
+            SidePanel.AddMission(missionData);
+        }
 
         _pathMode = true;
         
-        _startPoints = new List<Vector3Int>
+        StartPoints = new List<Vector3Int>
         {
             new (48, 52, 0),
             new (52, 52, 0),
@@ -44,16 +53,35 @@ public class GameManager : MonoBehaviour
     }
     void ConfirmPath()
     {
-        truck.patrolPoints = new List<Vector3>();
+        var points = new List<Vector3>();
         
-        
-        for (int i = 0; i < _path.Count; i++)
+        int i = 0;
+        foreach (var path in _path)
         {
-            for (int j = 0; j < _path[i].Count; j++)
+            Vector3Int start = Vector3Int.zero;
+            Vector3Int goal = Vector3Int.zero;
+            if (i != _path.Count - 1)
             {
-                truck.patrolPoints.Add(roadTilemap.CellToWorld(_path[i][j]));
+                var path2 = _path[i + 1];
+                goal = path.Find(x => path2.Contains(x));
+                start = goal == path[0] ? path.Last() : path[0];
             }
+            else
+            {
+                var path2 = _path[i - 1];
+                start = path.Find(x => path2.Contains(x));
+                goal = start == path[0] ? path.Last() : path[0];
+            }
+
+            if (i == 0)
+            {
+                points.Add(roadTilemap.CellToWorld(start) + new Vector3(0, 0.3f, 0));
+            }
+            points.Add(roadTilemap.CellToWorld(goal) + new Vector3(0, 0.3f, 0));
+            i++;
         }
+
+        truck.patrolPoints = points;
     }
     private void Update()
     {
@@ -103,7 +131,7 @@ public class GameManager : MonoBehaviour
 
         Color color = Color.red;
         bool removeLast = false;
-        if (_path.Count == 0 && currentPoints.Any(x => _startPoints.Contains(x)))
+        if (_path.Count == 0 && currentPoints.Any(x => StartPoints.Contains(x)))
         {
             color = Color.green;
         }

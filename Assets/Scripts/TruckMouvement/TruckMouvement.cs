@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -29,7 +30,9 @@ public class TruckMouvement : MonoBehaviour, IPointerDownHandler
     [SerializeField] private AnimationCurve curve;
     
      private int tileIndex = 0 ;
-     private RoadGeneration grid ;
+     private RoadGeneration grid;
+     
+     private int looped = 0;
 
      private void Start()
      {
@@ -67,7 +70,20 @@ public class TruckMouvement : MonoBehaviour, IPointerDownHandler
 
      void Mouvement()
      {
-         if(tileIndex >= patrolPoints.Count-1) return;
+         if (patrolPoints.Count == 0) return;
+         if (looped == 2) return;
+         if(tileIndex >= patrolPoints.Count - 1 && looped < 2)
+         {
+             if (GameManager.StartPoints.Any(x => patrolPoints.Last() == x))
+             {
+                 looped = 2;
+                 return;
+             }
+             patrolPoints.Reverse(0, patrolPoints.Count);
+             tileIndex = 0;
+             looped++;
+             return;
+         }
          
          cooldown += Time.deltaTime / duration;
 
