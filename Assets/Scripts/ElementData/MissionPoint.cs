@@ -35,7 +35,7 @@ public class MissionPoint : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     public void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(other.transform.name);
-        if (other.transform.tag == "Truck")
+        if (other.transform.tag == "Player")
         {
          Destroy(gameObject);   
         }   
