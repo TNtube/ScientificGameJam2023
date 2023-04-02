@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 60755244}
   m_Layer: 0
   m_Name: Truck
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2863,7 +2863,7 @@ GameObject:
   - component: {fileID: 694834909}
   m_Layer: 0
   m_Name: Truck (1)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39689,7 +39689,7 @@ GameObject:
   - component: {fileID: 2005354305}
   m_Layer: 0
   m_Name: Truck (2)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -16,17 +16,13 @@ public class MissionPoint : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     private void Start()
     {
         missionPanel = FindObjectOfType<MissionPanel>();
+        SidePanel = FindObjectOfType<SidePanel>();
     }
     public void SetMissionData(MissionData _mission)
     {
         mission = _mission;
         
-        SidePanel = FindObjectOfType<SidePanel>();
-        missionDATA = ScriptableObject.CreateInstance<MissionData>();
-        missionDATA.title = mission.name;
-        missionDATA.description = mission.description;
-        missionDATA.reward = Random.Range(mission.reward, 950);
-        SidePanel.AddMission(missionDATA);
+        //SidePanel.AddMission(_mission);
     }
     public void OnPointerDown(PointerEventData eventData)
     {
