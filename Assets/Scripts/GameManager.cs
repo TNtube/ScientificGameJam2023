@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     
     public List<List<Vector3Int>> Path => _path;
 
-    private List<Vector3Int> _startPoints = new List<Vector3Int>();
+    public static List<Vector3Int> StartPoints = new List<Vector3Int>();
     [SerializeField] private Button confirmPath;
     [SerializeField] private TruckMouvement truck;
 
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
 
         _pathMode = true;
         
-        _startPoints = new List<Vector3Int>
+        StartPoints = new List<Vector3Int>
         {
             new (48, 52, 0),
             new (52, 52, 0),
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
 
         Color color = Color.red;
         bool removeLast = false;
-        if (_path.Count == 0 && currentPoints.Any(x => _startPoints.Contains(x)))
+        if (_path.Count == 0 && currentPoints.Any(x => StartPoints.Contains(x)))
         {
             color = Color.green;
         }
