@@ -38569,6 +38569,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SidePanel
       objectReference: {fileID: 0}
+    - target: {fileID: 4152455470797159175, guid: 1e2024512e98dd94f9eb6e9f680f80b4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4152455471037150081, guid: 1e2024512e98dd94f9eb6e9f680f80b4, type: 3}
       propertyPath: m_IsActive
       value: 1
